@@ -16,6 +16,7 @@
 namespace Facebook\WebDriver\Remote;
 
 use Facebook\WebDriver\Chrome\ChromeOptions;
+use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Interactions\WebDriverActions;
 use Facebook\WebDriver\JavaScriptExecutor;
 use Facebook\WebDriver\WebDriver;
@@ -205,7 +206,12 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             $params
         );
 
-        return $this->newElement(current($raw_element));
+        $el = current($raw_element);
+        if($el == 'no such element'){
+            throw new NoSuchElementException('Element does not exists! '. $by->getValue());
+        }
+
+        return $this->newElement($el);
     }
 
     /**
@@ -225,7 +231,13 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
 
         $elements = [];
         foreach ($raw_elements as $raw_element) {
-            $elements[] = $this->newElement(current($raw_element));
+
+            $el = current($raw_element);
+            if($el == 'no such element'){
+                throw new NoSuchElementException('Element does not exists! '. $by->getValue());
+            }
+
+            $elements[] = $this->newElement($el);
         }
 
         return $elements;
