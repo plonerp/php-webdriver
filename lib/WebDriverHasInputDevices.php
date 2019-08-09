@@ -15,18 +15,25 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Remote\RemoteTouchScreen;
+
 /**
  * Interface implemented by each driver that allows access to the input devices.
  */
 interface WebDriverHasInputDevices
 {
     /**
+     * @return WebDriverMouse
+     */
+    public function getMouse();
+
+    /**
      * @return WebDriverKeyboard
      */
     public function getKeyboard();
 
     /**
-     * @return WebDriverMouse
+     * @return RemoteTouchScreen
      */
-    public function getMouse();
+    public function getTouch();
 }
