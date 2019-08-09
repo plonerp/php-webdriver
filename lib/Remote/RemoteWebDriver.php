@@ -205,7 +205,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             $params
         );
 
-        return $this->newElement($raw_element['ELEMENT']);
+        return $this->newElement(current($raw_element));
     }
 
     /**
@@ -225,7 +225,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
 
         $elements = [];
         foreach ($raw_elements as $raw_element) {
-            $elements[] = $this->newElement($raw_element['ELEMENT']);
+            $elements[] = $this->newElement(current($raw_element));
         }
 
         return $elements;
