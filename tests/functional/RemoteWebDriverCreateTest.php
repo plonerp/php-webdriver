@@ -18,6 +18,7 @@ namespace Facebook\WebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\HttpCommandExecutor;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Facebook\WebDriver\Remote\WebDriverDialect;
 
 /**
  * @covers \Facebook\WebDriver\Remote\RemoteWebDriver
@@ -95,7 +96,7 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
         $sessionId = $originalDriver->getSessionID();
 
         // Create new RemoteWebDriver instance based on the session ID
-        $this->driver = RemoteWebDriver::createBySessionID($sessionId, $this->serverUrl);
+        $this->driver = RemoteWebDriver::createBySessionID($sessionId, WebDriverDialect::createW3C(), $this->serverUrl);
 
         // Check we reused the previous instance (window) and it has the same URL
         $this->assertContains('/index.html', $this->driver->getCurrentURL());
